@@ -7,7 +7,6 @@ const val INPUT_CHILD_PATH = "test/resources/"
  */
 fun getFile(name: String) = File(INPUT_PARENT_PATH, "$INPUT_CHILD_PATH$name.txt")
 fun File.toStringList() = this.readLines()
-fun File.toIntList(): List<Int> = this.toStringList().map { it.toInt() }
 fun File.toSpacedListOfIntLists(): List<List<Int>> = this.toStringList().let { dataLine ->
     val finalList = mutableListOf<List<Int>>()
     val intermediateList = mutableListOf<Int>()
@@ -22,6 +21,9 @@ fun File.toSpacedListOfIntLists(): List<List<Int>> = this.toStringList().let { d
     }
     return finalList
 }
+fun File.toCharCharPairList(): List<Pair<Char,Char>> = this.toStringList().map { Pair(it[0],it[2]) }
+
+//fun File.toIntList(): List<Int> = this.toStringList().map { it.toInt() }
 //fun readInputAsOneLineIntList(name: String) = toStringList(name).flatMap { line -> line.split(",").map { it.toInt() } }
 //fun readInputAsListOfIntList(name: String) = toStringList(name).map { it.map { char -> char.digitToInt() } }
 
