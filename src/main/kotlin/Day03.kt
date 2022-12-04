@@ -1,37 +1,26 @@
 fun calculateMisplacedItemPrioritySum(input: List<String>): Int {
-    return input.fold(0) { acc, next ->
-        val compartments = splitIntoNEqualComponents(next, 2)
-        val misplacedItem = compartments.flatMap { c -> c.toSet() }
-            .groupingBy { it }
-            .eachCount()
-            .filter { it.value == 2 }
-            .keys
-            .first()
-         acc + getPriority(misplacedItem)
+    return input.fold(0) { acc, rucksack ->
+        acc + rucksack.chunked(rucksack.length / 2)
+            .commonElement()
+            .toScore()
     }
 }
 
 fun calculateBadgeItemPrioritySum(input: List<String>): Int {
-    return input.windowed(3, 3, false)
-        .fold(0) { acc, next ->
-            acc + getPriority(findCommonElement(next))
+    return input.chunked(3)
+        .fold(0) { acc, elfGroup ->
+            acc + elfGroup.commonElement().toScore()
         }
 }
 
-private fun findCommonElement(group: List<String>): Char {
-    return group.map { it.toSet() }
-        .reduce { acc, next -> acc.intersect(next) }
-        .first()
+private fun List<String>.commonElement(): Char {
+    return this.map { it.toSet() }
+        .reduce { acc, next -> acc intersect next }
+        .single()
 }
 
-private fun splitIntoNEqualComponents(data: String, n: Int): List<String> {
-    assert(data.length > n) { "Input length shorter than $n" }
-    assert(data.length % n == 0) { "Input length not evenly divisible by $n" }
-    return data.chunked(data.length / n)
-}
-
-private fun getPriority(c: Char): Int {
-    val offset = if (c.isLowerCase()) 96 else 38 // find offset between ascii and priority values
-    return c.code - offset
+private fun Char.toScore(): Int {
+    val offset = if (this.isLowerCase()) 96 else 38 // find offset between ascii and priority values
+    return this.code - offset
 }
 
