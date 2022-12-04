@@ -1,7 +1,16 @@
-fun calculateMaxElfCalories(data: List<List<Int>>): Int {
-    return data.maxOfOrNull { it.sum() } ?: 0
+import java.io.File
+
+fun calculateMaxElfCalories(data: List<Int>): Int {
+    return data.first()
 }
 
-fun calculateTopNElfCalories(topN: Int, data: List<List<Int>>): Int {
-    return data.sortedByDescending { it.sum() }.take(topN).flatten().sum()
+fun calculateTopNElfCalories(n: Int, data: List<Int>): Int {
+    return data.take(n).sum()
 }
+
+fun File.toElfCalorieList(): List<Int> =
+    this.readText()
+        .trim()
+        .split("\n\n")
+        .map { it.lines().sumOf(String::toInt) }
+        .sortedDescending()
