@@ -7,25 +7,25 @@ class Day02Test {
 
     @Test
     fun `part 1 sample`() {
-        val result = playRound1RockPaperScissors(sampleData)
+        val result = playRockPaperScissors(sampleData, ::round1Calculator)
         result shouldBe 15
     }
 
     @Test
     fun `part 1`() {
-        val result = playRound1RockPaperScissors(actualData)
+        val result = playRockPaperScissors(actualData, ::round1Calculator)
         result shouldBe 15422
     }
 
     @Test
     fun `part 2 sample`() {
-        val result = playRound2RockPaperScissors(sampleData)
+        val result = playRockPaperScissors(sampleData, ::round2Calculator)
         result shouldBe 12
     }
 
     @Test
     fun `part 2`() {
-        val result = playRound2RockPaperScissors(actualData)
+        val result = playRockPaperScissors(actualData, ::round2Calculator)
         result shouldBe 15442
     }
 }

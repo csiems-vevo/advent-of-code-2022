@@ -1,7 +1,6 @@
-fun playRound1RockPaperScissors(input: List<Pair<Char,Char>>) = input.sumOf { calculateRound1RPSValue(it) }
-fun playRound2RockPaperScissors(input: List<Pair<Char,Char>>) = input.sumOf { calculateRound2RPSValue(it) }
+fun playRockPaperScissors(input: List<Pair<Char,Char>>, calculator: (Pair<Char,Char>) -> Int) = input.sumOf { calculator(it) }
 
-private fun calculateRound1RPSValue(roundResult: Pair<Char,Char>): Int {
+fun round1Calculator(roundResult: Pair<Char,Char>): Int {
     return when(roundResult) {
         Pair('A','X') -> 4
         Pair('A','Y') -> 8
@@ -16,7 +15,7 @@ private fun calculateRound1RPSValue(roundResult: Pair<Char,Char>): Int {
     }
 }
 
-private fun calculateRound2RPSValue(roundResult: Pair<Char,Char>): Int {
+fun round2Calculator(roundResult: Pair<Char,Char>): Int {
     return when(roundResult) {
         Pair('A','X') -> 3
         Pair('A','Y') -> 4
