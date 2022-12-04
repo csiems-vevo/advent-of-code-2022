@@ -14,6 +14,14 @@ fun File.toSpacedListOfIntLists() = this.readText().trim().split("\n\n")
         }
     }
 fun File.toCharCharPairList(): List<Pair<Char,Char>> = this.readLines().map { Pair(it[0],it[2]) }
+fun File.toIntRangeIntRangePairList(): List<Pair<IntRange,IntRange>> {
+    return this.readLines().map {
+        it.split("-",",")
+            .let { (first, second, third, fourth) ->
+                Pair(first.toInt()..second.toInt(), third.toInt()..fourth.toInt())
+            }
+    }
+}
 
 //fun File.toIntList(): List<Int> = this.toStringList().map { it.toInt() }
 //fun readInputAsOneLineIntList(name: String) = toStringList(name).flatMap { line -> line.split(",").map { it.toInt() } }
