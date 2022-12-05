@@ -33,7 +33,7 @@ private fun List<ArrayDeque<Char>>.move(command: Command, reverse: Boolean) {
 }
 
 private fun extractStackedBoxes(input: String): List<ArrayDeque<Char>> {
-    val rows =  input.substringBefore("\n\n").lines()
+    val rows = input.substringBefore("\n\n").lines()
     return (1..rows.last().length step 4).map { index ->
         rows
             .mapNotNull { it.getOrNull(index) }
