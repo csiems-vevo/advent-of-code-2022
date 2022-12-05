@@ -1,13 +1,13 @@
 fun useCrane9000(input: String): String {
-    val stacks = input.extractStackedBoxes()
-    val commands = input.extractMoveCommands()
+    val stacks = extractStackedBoxes(input)
+    val commands = extractMoveCommands(input)
 
     return stacks.processMoveCommands(commands, true).toTopLine()
 }
 
 fun useCrane9001(input: String): String {
-    val stacks = input.extractStackedBoxes()
-    val commands = input.extractMoveCommands()
+    val stacks = extractStackedBoxes(input)
+    val commands = extractMoveCommands(input)
 
     return stacks.processMoveCommands(commands, false).toTopLine()
 }
@@ -32,10 +32,8 @@ private fun List<ArrayDeque<Char>>.move(command: Command, reverse: Boolean) {
     }
 }
 
-private fun List<ArrayDeque<Char>>.toTopLine() = this.map { it.first() }.joinToString("")
-
-private fun String.extractStackedBoxes(): List<ArrayDeque<Char>> {
-    val rows =  this.substringBefore("\n\n").lines()
+private fun extractStackedBoxes(input: String): List<ArrayDeque<Char>> {
+    val rows =  input.substringBefore("\n\n").lines()
     return (1..rows.last().length step 4).map { index ->
         rows
             .mapNotNull { it.getOrNull(index) }
@@ -44,13 +42,11 @@ private fun String.extractStackedBoxes(): List<ArrayDeque<Char>> {
     }
 }
 
-private fun String.extractMoveCommands() = this.substringAfter("\n\n").trim().lines().map { it.toCommand() }
+private fun extractMoveCommands(input: String) = input.substringAfter("\n\n").trim().lines().map { it.toCommand() }
 
 private fun String.toCommand(): Command = this.split(" ")
     .filter { string -> string.all { it.isDigit() } }
     .map { it.toInt() }
     .let { (amount, from, to) -> Command(amount, from, to) }
 
-
-
-
+private fun List<ArrayDeque<Char>>.toTopLine() = this.map { it.first() }.joinToString("")
