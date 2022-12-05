@@ -2,37 +2,40 @@ import io.kotest.matchers.shouldBe
 import org.testng.annotations.Test
 
 class Day05Test {
-    private val sampleData = listOf(
-        Pair(2..4, 6..8),
-        Pair(2..3, 4..5),
-        Pair(5..7, 7..9),
-        Pair(2..8, 3..7),
-        Pair(6..6, 4..6),
-        Pair(2..6, 4..8)
-    )
-    private val actualData = getFile("Day04").toIntRangeIntRangePairList()
+    private val sampleData = """
+            [D]
+        [N] [C]
+        [Z] [M] [P]
+         1   2   3 
+        
+        move 1 from 2 to 1
+        move 3 from 1 to 3
+        move 2 from 2 to 1
+        move 1 from 1 to 2
+    """.trimIndent()
+    private val actualData = getFile("Day05").readText()
 
     @Test
     fun `part 1 sample`() {
-        val result = countFullyOverlappingPairs(sampleData)
-        result shouldBe 2
+        val result = useCrane9000(sampleData)
+        result shouldBe "CMZ"
     }
 
     @Test
     fun `part 1`() {
-        val result = countFullyOverlappingPairs(actualData)
-        result shouldBe 657
+        val result = useCrane9000(actualData)
+        result shouldBe "BSDMQFLSP"
     }
 
     @Test
     fun `part 2 sample`() {
-        val result = countPartialOverlappingPairs(sampleData)
-        result shouldBe 4
+        val result = useCrane9001(sampleData)
+        result shouldBe "MCD"
     }
 
     @Test
     fun `part 2`() {
-        val result = countPartialOverlappingPairs(actualData)
-        result shouldBe 938
+        val result = useCrane9001(actualData)
+        result shouldBe "PGSQBFLDP"
     }
 }
