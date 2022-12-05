@@ -38,11 +38,8 @@ private fun String.extractStackedBoxes(): List<ArrayDeque<Char>> {
     val rows =  this.substringBefore("\n\n").lines()
     return (1..rows.last().length step 4).map { index ->
         rows
-            .also { println("Rows: $it") }
             .mapNotNull { it.getOrNull(index) }
-            .also { println("Mapped Not null: $it") }
             .filter { it.isUpperCase() }
-            .also { println("filtered is uppercase: $it") }
             .let { ArrayDeque(it) }
     }
 }
