@@ -3,6 +3,7 @@ import org.testng.annotations.Test
 
 class Day06Test {
     private val sampleData = mapOf(
+        // input string to Pair(expectedPart1Result,expectedPart2Result)
         "mjqjpqmgbljsphdztnvjfqwrcgsmlb" to Pair(7,19),
         "bvwbjplbgvbhsrlpgdmjqwftvncz" to Pair(5,23),
         "nppdvjthqldpwncqszvftbrmjlhg" to Pair(6,23),
