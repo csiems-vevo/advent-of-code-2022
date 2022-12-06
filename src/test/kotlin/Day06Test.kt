@@ -8,7 +8,7 @@ class Day06Test {
         "nppdvjthqldpwncqszvftbrmjlhg" to Pair(6,23),
         "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg" to Pair(10,29),
         "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw" to Pair(11,26)
-        )
+    )
     private val actualData = getFile("Day06").readText()
 
     @Test
