@@ -21,7 +21,7 @@ private fun parseCommands(input: List<String>): MutableSet<ElfDirectory> {
     input.forEachIndexed { index, line ->
         val parts = line.split(" ")
         val command = parts[1]
-        val location by lazy { parts[2] }
+        val newDirectory by lazy { parts[2] }
 
         when (command) {
             "ls" -> {
@@ -43,10 +43,10 @@ private fun parseCommands(input: List<String>): MutableSet<ElfDirectory> {
                 }
             }
             "cd" -> {
-                currentDirectory = when (location) {
+                currentDirectory = when (newDirectory) {
                     "/" -> rootDirectory
                     ".." -> currentDirectory.parent!!
-                    else -> currentDirectory.directories[location]!!
+                    else -> currentDirectory.directories[newDirectory]!!
                 }
             }
             else -> {
