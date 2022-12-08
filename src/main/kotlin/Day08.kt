@@ -1,4 +1,5 @@
 import shared.Point2d
+import shared.product
 
 fun findVisible(input: List<String>): Int {
     return ForestGrid(input).findVisible().size
@@ -88,9 +89,6 @@ class ForestGrid(input: List<String>) {
         }
     }
 
-
-
-
     // point extensions
     private fun Point2d.isEdge() = grid.outers().contains(this)
 
@@ -99,8 +97,7 @@ class ForestGrid(input: List<String>) {
             .groupBy { it.x > this.x }
         val verticalScores = this.allinColumn()
             .groupBy { it.y > this.y }
-        return (traverseUntilBlocked(this, horizontalScores) + traverseUntilBlocked(this, verticalScores))
-            .reduce { acc, i -> acc * i }
+        return (traverseUntilBlocked(this, horizontalScores) + traverseUntilBlocked(this, verticalScores)).product()
     }
 
     private fun Point2d.isVisibleHorizontally(): Boolean {
@@ -151,6 +148,3 @@ class ForestGrid(input: List<String>) {
         point.y in this.indices && point.x in this[point.y].indices
 
 }
-
-
-
