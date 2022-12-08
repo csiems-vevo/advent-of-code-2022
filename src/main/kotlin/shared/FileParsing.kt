@@ -19,7 +19,7 @@ fun File.toIntRangeIntRangePairList(): List<Pair<IntRange,IntRange>> {
 
 //fun File.toIntList(): List<Int> = this.toStringList().map { it.toInt() }
 //fun readInputAsOneLineIntList(name: String) = toStringList(name).flatMap { line -> line.split(",").map { it.toInt() } }
-//fun readInputAsListOfIntList(name: String) = toStringList(name).map { it.map { char -> char.digitToInt() } }
+fun File.toListOfIntList() = this.readLines().map { it.map { char -> char.digitToInt() } }
 
 /**
  * Get entire range of numbers between the min and max of a list
