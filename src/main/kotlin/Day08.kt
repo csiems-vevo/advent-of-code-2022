@@ -1,6 +1,5 @@
 import shared.Point2d
 
-
 fun findVisible(input: List<String>): Int {
     return ForestGrid(input).findVisible().size
 }
