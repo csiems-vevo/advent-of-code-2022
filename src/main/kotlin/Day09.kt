@@ -1,4 +1,5 @@
 import shared.Point2d
+import kotlin.math.abs
 
 fun countTwoKnotRopeTailPositions(input: List<String>): Int {
     clearFields()
@@ -86,7 +87,7 @@ fun processTenKnotCommand(command: String) {
     }
 }
 
-fun moveTenKnots() {
+private fun moveTenKnots() {
     current1Position = moveFollower(currentHeadPosition, current1Position)
     current2Position = moveFollower(current1Position, current2Position)
     current3Position = moveFollower(current2Position, current3Position)
@@ -103,46 +104,12 @@ fun moveFollower(currentLeadingPosition: Point2d, currentFollowingPosition: Poin
 
     val diff = currentLeadingPosition.diff(currentFollowingPosition)
 
-    val newFollowingPosition = if (diff.y == 2) {
-        // head is above tail
-        if (diff.x == 0) {
-            currentFollowingPosition.moveNorth()
-        } else if (diff.x >= 1) {
-            currentFollowingPosition.moveNortheast()
-        } else {
-            currentFollowingPosition.moveNorthwest()
-        }
-    } else if (diff.y == -2) {
-        // head is below tail
-        if (diff.x == 0) {
-            currentFollowingPosition.moveSouth()
-        } else if (diff.x >= 1) {
-            currentFollowingPosition.moveSoutheast()
-        } else {
-            currentFollowingPosition.moveSouthwest()
-        }
-    } else if (diff.x == -2) {
-        // head is left
-        if (diff.y == 0) {
-            currentFollowingPosition.moveWest()
-        } else if (diff.y >= 1) {
-            currentFollowingPosition.moveNorthwest()
-        } else {
-            currentFollowingPosition.moveSouthwest()
-        }
-    } else if (diff.x == 2) {
-        // head is right
-        if (diff.y == 0) {
-            currentFollowingPosition.moveEast()
-        } else if (diff.y >= 1) {
-            currentFollowingPosition.moveNortheast()
-        } else {
-            currentFollowingPosition.moveSoutheast()
-        }
+    val newFollowingPosition = if(diff.distance > 1) {
+        move(currentFollowingPosition, diff)
     } else {
-        // no need to move tail
         currentFollowingPosition
     }
+
     if (trackChanges) {
         pastTailPositions.add(newFollowingPosition)
     }
@@ -168,12 +135,14 @@ private fun Point2d.diff(other: Point2d): Point2d {
 }
 
 private operator fun Point2d.plus(other: Point2d): Point2d {
-    return Point2d(this.x + other.x, this.y + other.y)
+    return Point2d(this.x + (other.x.coerceIn(-1,1)), this.y + (other.y.coerceIn(-1,1)))
 }
 
 private operator fun Point2d.minus(other: Point2d): Point2d {
     return Point2d(this.x - other.x, this.y - other.y)
 }
+
+val Point2d.distance: Int get() = maxOf(abs(x), abs(y))
 
 fun clearFields() {
     pastTailPositions = mutableSetOf(Point2d(0,0))
