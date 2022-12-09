@@ -3,13 +3,13 @@ import shared.Point2d
 fun countTwoKnotRopeTailPositions(input: List<String>): Int {
     clearFields()
     input.forEach { processTwoKnotCommand(it) }
-    return pastTailPositions.count()
+    return pastTailPositions.size
 }
 
 fun countTenKnotRopeTailPositions(input: List<String>): Int {
     clearFields()
     input.forEach { processTenKnotCommand(it) }
-    return pastTailPositions.count()
+    return pastTailPositions.size
 }
 
 var pastTailPositions = mutableSetOf(Point2d(0,0))
