@@ -1,16 +1,16 @@
 import kotlin.math.floor
 
-fun part01(input: List<String>): Int {
+fun part01(input: List<String>): Long {
 
     val values = runProgram(input)
 
     return listOf(
-        values.take(20).sum() * 20,
-        values.take(60).sum() * 60,
-        values.take(100).sum() * 100,
-        values.take(140).sum() * 140,
-        values.take(180).sum() * 180,
-        values.take(220).sum() * 220
+        values.score(20),
+        values.score(60),
+        values.score(100),
+        values.score(140),
+        values.score(180),
+        values.score(220)
     ).sum()
 }
 
@@ -19,7 +19,7 @@ fun part02(input: List<String>): String {
     val values = runProgram(input)
 
     val printOut = buildString {
-        values.forEachIndexed { index, char ->
+        values.forEachIndexed { index, _ ->
             val cycle = calculateCycle(index)
             val spriteEdge = values.take(index + 1).sum()
             val spriteCoverage = listOf(spriteEdge, spriteEdge + 1, spriteEdge + 2)
@@ -62,3 +62,5 @@ private fun calculateCycle(index: Int): Int {
     val cycle = floor(index / 40.0).toInt()
     return index - (cycle * 40) + 1
 }
+
+private fun List<Int>.score(amount: Int): Long = this.take(amount).sum() * amount.toLong()
