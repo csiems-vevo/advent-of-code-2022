@@ -25,13 +25,13 @@ class Day12Test {
 
     @Test
     fun `part 2 sample`() {
-        val result = Day12(sampleData).bestHikingPath()
+        val result = Day12(sampleData).shortestPathFromCharA()
         result shouldBe 29
     }
 
     @Test
     fun `part 2`() {
-        val result = Day12(actualData).bestHikingPath()
+        val result = Day12(actualData).shortestPathFromCharA()
         result shouldBe 522
     }
 }

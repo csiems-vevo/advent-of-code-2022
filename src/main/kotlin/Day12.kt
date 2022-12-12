@@ -14,7 +14,7 @@ class Day12(input: List<String>) {
         return path.size - 1
     }
 
-    fun bestHikingPath(): Int {
+    fun shortestPathFromCharA(): Int {
         return grid.mapIndexed { y, chars ->
             chars.mapIndexed { x, c ->
                 if (c == 'a') {
@@ -27,7 +27,7 @@ class Day12(input: List<String>) {
             .flatten()
             .filterNotNull()
             .map { grid.bfs(it, end).count() - 1 }
-            .filterNot { it == 0 }
+            .filterNot { it == 0 } // bfs can return empty list if no path found
             .minOf { it }
     }
 
