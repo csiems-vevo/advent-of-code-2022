@@ -11,5 +11,5 @@ inline fun <T> Iterable<T>.takeUntil(predicate: (T) -> Boolean): List<T> {
     return list
 }
 
-fun Iterable<Int>.product(): Int =
-    reduce { a, b -> a * b }
+fun Iterable<Int>.product(): Int = this.reduce(Int::times)
+fun Iterable<Long>.product(): Long = this.reduce(Long::times)

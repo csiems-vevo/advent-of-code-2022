@@ -37,4 +37,11 @@ fun <T, M> Iterable<T>.countBy(transformer: (T) -> M) : Map<M, Long> {
     }
 }
 
+fun String.splitByNewLine(): List<String> {
+    return this.trim().split("\n\n")
+}
+
+fun File.splitByNewline(): List<String> =
+    this.readText().splitByNewLine()
+
 

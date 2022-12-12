@@ -9,8 +9,6 @@ fun calculateTopNElfCalories(n: Int, data: List<Int>): Int {
 }
 
 fun File.toElfCalorieList(): List<Int> =
-    this.readText()
-        .trim()
-        .split("\n\n")
+    this.splitByNewline()
         .map { it.lines().sumOf(String::toInt) }
         .sortedDescending()
