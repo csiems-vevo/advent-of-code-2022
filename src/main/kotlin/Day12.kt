@@ -1,8 +1,7 @@
 import shared.Point2d
 
-
 // Breadth First Search through Array<CharArray>
-class Day12(input: List<String>) {
+class BreadthFirstSearcher(input: List<String>) {
 
     private val parsed = parseInput(input)
     private val start = parsed.first
@@ -49,14 +48,14 @@ class Day12(input: List<String>) {
         assert(start in this)
 
         val path = mutableMapOf<Point2d, Point2d>()
-        val queue = mutableListOf<Point2d>()
+        val processingQueue = mutableListOf<Point2d>()
         val visited = mutableMapOf<Point2d, Boolean>()
         var end = Point2d(0,0)
-        queue.add(start)
+        processingQueue.add(start)
         visited[start] = true
 
-        while (queue.size > 0) {
-            val curr = queue.removeLast()
+        while (processingQueue.size > 0) {
+            val curr = processingQueue.removeLast()
             // short circuit if we find end earlier
             if (isDestination(curr)) {
                 end = curr
@@ -74,7 +73,7 @@ class Day12(input: List<String>) {
             }.filter { point ->
                 curr.isValidNeighborOf(point)
             }.forEach { next ->
-                queue.add(0, next)
+                processingQueue.add(0, next)
                 path[next] = curr
                 visited[next] = true
             }

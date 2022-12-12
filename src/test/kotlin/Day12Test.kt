@@ -13,25 +13,25 @@ class Day12Test {
 
     @Test
     fun `part 1 sample`() {
-        val result = Day12(sampleData).shortestPathStepsFromStart()
+        val result = BreadthFirstSearcher(sampleData).shortestPathStepsFromStart()
         result shouldBe 31
     }
 
     @Test
     fun `part 1`() {
-        val result = Day12(actualData).shortestPathStepsFromStart()
+        val result = BreadthFirstSearcher(actualData).shortestPathStepsFromStart()
         result shouldBe 528
     }
 
     @Test
     fun `part 2 sample`() {
-        val result = Day12(sampleData).shortestPathFromCharA()
+        val result = BreadthFirstSearcher(sampleData).shortestPathFromCharA()
         result shouldBe 29
     }
 
     @Test
     fun `part 2`() {
-        val result = Day12(actualData).shortestPathFromCharA()
+        val result = BreadthFirstSearcher(actualData).shortestPathFromCharA()
         result shouldBe 522
     }
 }
