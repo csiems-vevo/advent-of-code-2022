@@ -10,25 +10,15 @@ class Day12(input: List<String>) {
     private val grid = parsed.third
 
     fun shortestPathStepsFromStart(): Int {
-        val path = grid.bfs(start, end)
+        val path = grid.bfs(end) { it == start }
         return path.size - 1
     }
 
     fun shortestPathFromCharA(): Int {
-        return grid.mapIndexed { y, chars ->
-            chars.mapIndexed { x, c ->
-                if (c == 'a') {
-                    Point2d(x, y)
-                } else {
-                    null
-                }
-            }
-        }
-            .flatten()
-            .filterNotNull()
-            .map { grid.bfs(it, end).count() - 1 }
-            .filterNot { it == 0 } // bfs can return empty list if no path found
-            .minOf { it }
+        // starting at the destination means we only have to find one shortest path
+        // rather than loop through all the possible starting positions
+        val path = grid.bfs(end) { grid[it] == 'a'}
+        return path.size - 1
     }
 
     private fun parseInput(input: List<String>): Triple<Point2d, Point2d, Array<CharArray>> {
@@ -55,20 +45,23 @@ class Day12(input: List<String>) {
     }
 
     // returns the shortest path
-    private fun Array<CharArray>.bfs(start: Point2d, end: Point2d): List<Point2d> {
+    private fun Array<CharArray>.bfs(start: Point2d, isDestination: (Point2d) -> Boolean): List<Point2d> {
         assert(start in this)
-        assert(end in this)
 
         val path = mutableMapOf<Point2d, Point2d>()
         val queue = mutableListOf<Point2d>()
         val visited = mutableMapOf<Point2d, Boolean>()
+        var end = Point2d(0,0)
         queue.add(start)
         visited[start] = true
 
         while (queue.size > 0) {
             val curr = queue.removeLast()
             // short circuit if we find end earlier
-            if (curr == end) break
+            if (isDestination(curr)) {
+                end = curr
+                break
+            }
             validMoves.mapNotNull { direction ->
                 val newPoint = Point2d(curr.x + direction.x, curr.y + direction.y)
                 if (newPoint !in this) {
@@ -79,7 +72,7 @@ class Day12(input: List<String>) {
             }.filter { current ->
                 !visited.getOrDefault(current, false)
             }.filter { point ->
-                curr.isValid(point)
+                curr.isValidNeighborOf(point)
             }.forEach { next ->
                 queue.add(0, next)
                 path[next] = curr
@@ -87,7 +80,6 @@ class Day12(input: List<String>) {
             }
         }
 
-        // WARNING: List can be empty if complete path not found!
         return path.regeneratePath(end)
     }
 
@@ -103,7 +95,8 @@ class Day12(input: List<String>) {
     operator fun Array<CharArray>.contains(point: Point2d): Boolean =
         point.y in this.indices && point.x in this[point.y].indices
 
-    private fun Point2d.isValid(other: Point2d): Boolean = grid[this] + 1 >= grid[other]
+    // since we are working backwards, a valid neighbor must be less than or equal to a point
+    private fun Point2d.isValidNeighborOf(other: Point2d): Boolean = grid[this] <= grid[other] + 1
 
     private val validMoves = listOf(Point2d(1, 0), Point2d(-1, 0), Point2d(0, 1), Point2d(0, -1))
 }
