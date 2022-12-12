@@ -37,6 +37,7 @@ class Day12(input: List<String>) {
         val values = input.mapIndexed { y, row ->
             row.mapIndexed { x, c ->
                 when(c) {
+                    // recording start and end then setting to 'a' and 'z' respectively
                     'S' -> {
                         start = Point2d(x, y)
                         'a'
