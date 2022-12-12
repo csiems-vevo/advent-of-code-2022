@@ -62,12 +62,8 @@ class BreadthFirstSearcher(input: List<String>) {
                 break
             }
             validMoves.mapNotNull { direction ->
-                val newPoint = Point2d(curr.x + direction.x, curr.y + direction.y)
-                if (newPoint !in this) {
-                    null
-                } else {
-                    newPoint
-                }
+                Point2d(curr.x + direction.x, curr.y + direction.y)
+                    .takeIf { it in this }
             }.filter { current ->
                 !visited.getOrDefault(current, false)
             }.filter { point ->
