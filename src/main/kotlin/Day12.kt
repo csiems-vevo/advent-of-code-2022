@@ -1,6 +1,7 @@
 import shared.Point2d
 
 // Breadth First Search through Array<CharArray>
+// See also: https://www.redblobgames.com/pathfinding/a-star/introduction.html#breadth-first-search
 class BreadthFirstSearcher(input: List<String>) {
 
     private val parsed = parseInput(input)
@@ -16,7 +17,7 @@ class BreadthFirstSearcher(input: List<String>) {
     fun shortestPathFromCharA(): Int {
         // starting at the destination means we only have to find one shortest path
         // rather than loop through all the possible starting positions
-        val path = grid.bfs(end) { grid[it] == 'a'}
+        val path = grid.bfs(end) { grid[it] == 'a' }
         return path.size - 1
     }
 
@@ -47,7 +48,7 @@ class BreadthFirstSearcher(input: List<String>) {
     private fun Array<CharArray>.bfs(start: Point2d, isDestination: (Point2d) -> Boolean): List<Point2d> {
         assert(start in this)
 
-        val path = mutableMapOf<Point2d, Point2d>()
+        val path = mutableMapOf<Point2d, Point2d>() // path A->B is stored as path[B] == A
         val processingQueue = mutableListOf<Point2d>()
         val visited = mutableMapOf<Point2d, Boolean>()
         var end = Point2d(0,0)
