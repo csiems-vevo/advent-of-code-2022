@@ -10,6 +10,7 @@ inline fun <T> Iterable<T>.takeUntil(predicate: (T) -> Boolean): List<T> {
     }
     return list
 }
+
 inline fun <T> MutableList<T>.removeLastUntil(predicate: (T) -> Boolean): List<T> {
     if (isEmpty())
         return emptyList()
@@ -25,3 +26,6 @@ inline fun <T> MutableList<T>.removeLastUntil(predicate: (T) -> Boolean): List<T
 
 fun Iterable<Int>.product(): Int = this.reduce(Int::times)
 fun Iterable<Long>.product(): Long = this.reduce(Long::times)
+
+
+infix fun Int.rangeBetween(other: Int) = this.coerceAtMost(other)..this.coerceAtLeast(other)
