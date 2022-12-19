@@ -22,25 +22,25 @@ class Day15Test {
 
     @Test
     fun `part 1 sample`() {
-        val result = findDeadSpots(10, sampleData)
+        val result = findClearedCoordinatesByRow(10, sampleData)
         result shouldBe 26
     }
 
     @Test
     fun `part 1`() {
-        val result = findDeadSpots(2000000, actualData)
+        val result = findClearedCoordinatesByRow(2_000_000, actualData)
         result shouldBe 5461729
     }
-//
-//    @Test
-//    fun `part 2 sample`() {
-//        val result = doSomething(3, sampleData)
-//        result shouldBe 45000
-//    }
-//
-//    @Test
-//    fun `part 2`() {
-//        val result = doSomething(3, actualData)
-//        result shouldBe 195625
-//    }
+
+    @Test
+    fun `part 2 sample`() {
+        val result = findUnsensoredCoordinateFrequency(sampleData, 0, 20)
+        result shouldBe 56000011L
+    }
+
+    @Test
+    fun `part 2`() {
+        val result = findUnsensoredCoordinateFrequency(actualData, 0, 4_000_000)
+        result shouldBe 10621647166538L
+    }
 }
