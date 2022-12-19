@@ -128,10 +128,6 @@ operator fun Cell.plus(other: Cell): Cell {
 }
 
 data class Cell(val x: Int, val y: Int) {
-    override fun equals(other: Any?): Boolean {
-        if (other !is Cell) return false
-        return x == other.x && y == other.y
-    }
 
     @OptIn(ExperimentalStdlibApi::class)
     fun barrierTo(other: Cell): List<Cell> =
@@ -148,13 +144,6 @@ data class Cell(val x: Int, val y: Int) {
                 }
             }
         }
-
-    override fun hashCode(): Int {
-        var result = x
-        result = 31 * result + y
-        return result
-    }
-
 }
 
 
