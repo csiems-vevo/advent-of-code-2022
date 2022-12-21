@@ -19,7 +19,7 @@ class Day16Test {
 
     @Test
     fun `part 1 sample`() {
-        val result = relievePressure(sampleData)
+        val result = doStuff(sampleData)
         result shouldBe 0
     }
 
